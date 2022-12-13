@@ -17,7 +17,7 @@ public class PoolItem
 public class PrefabPool : MonoBehaviour
 {
     [SerializeField] GameObject theParent;
-    public static Pool singleton;
+    public static PrefabPool singleton;
     // pool is a list of objects
     public List<GameObject> poolItemsToUse;
     // list of all prefabs to instantiate

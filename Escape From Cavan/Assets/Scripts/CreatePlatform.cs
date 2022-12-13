@@ -32,7 +32,7 @@ public class CreatePlatforms : MonoBehaviour
 
     public static void RunPhantom()
     {
-        GameObject p = PrefabPrefabPool.singleton.GetPlatform();
+        GameObject p = PrefabPool.singleton.GetPlatform();
         if (p == null) return;
         //print("Getting platform: " + p.tag);
 
@@ -73,18 +73,6 @@ public class CreatePlatforms : MonoBehaviour
                 // repostition the phantom, add the new platform in front of the right turn
                 phantom.transform.Translate(new Vector3(0, 0, -1.4f));
             }
-
-            //while (true)
-            //{
-            //    // add a check to the last platform
-            //    if ((LastPlatform.tag).Contains("Turn") && (p.tag).Contains("Turn"))
-            //    {
-            //        print("Getting new platform");
-            //        p = PrefabPool.singleton.GetPlatform();
-            //    }
-            //    else
-            //        break;
-            //}
         }
         LastPlatform = p;
         p.transform.position = phantom.transform.position;
@@ -284,59 +272,5 @@ Random.Range(0, platforms.Length);
                 pos.y += 2.2f;
             }
         }
-    }
-
-    //private void CreateNewSet1()
-    //{
-    //    Vector3 pos = new Vector3(0, 0, 5);
-    //    int platformNumber;
-    //    GameObject p;
-
-    //    //set the dummy one position in front
-    //    phantom.transform.position = PlayerBehaviour.player.transform.forward * 5;
-
-    //    for (int i = 0; i < NumberOfPlatforms; i++)
-    //    {
-    //        platformNumber = Random.Range(0, platforms.Length);
-    //        // create a new platform using the prefab
-    //        // set to the correct position in the front
-    //        p = Instantiate(platforms[platformNumber], 
-    //                        phantom.transform.position, 
-    //                        phantom.transform.rotation);
-    //        //pos.z += 5;
-    //        // stairs down - then offset
-    //        if (p.tag == "Stairs Down")
-    //        {
-    //            // move the phantom down the stairs
-    //            phantom.transform.Translate(new Vector3(0, -2.2f, 0));
-    //            p.transform.position += new Vector3(0f, -1.3f, 0f);
-    //            // change the y value for pos
-    //            //pos.y += -2.2f;
-
-    //        }
-    //        // if stairs up - then offset plus rotate
-    //        else if (p.tag == "Stairs Up")
-    //        {
-    //            phantom.transform.Translate(new Vector3(0, 2.2f, 0));
-    //            p.transform.position += new Vector3(0f, 0.93f, 0f);
-    //            p.transform.Rotate(0, 180, 0);
-    //            //pos.y += 2.2f;
-    //        }
-    //        else if (p.tag == "Right Turn")
-    //        {
-    //            print("right Turn added");
-    //            p.transform.Translate(new Vector3(0f, 0f, -1.5f));
-    //            phantom.transform.Translate(new Vector3(-1.5f, 0f, -1.5f));
-    //            phantom.transform.Rotate(new Vector3(0, 90f, 0));
-
-    //        }
-    //        // move the phantom forward
-    //        phantom.transform.Translate(Vector3.forward * 5f);
-    //    }
-    //}
-
-    void Update()
-    {
-
     }
 }

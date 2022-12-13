@@ -13,7 +13,7 @@ public class PlayerBehaviour : MonoBehaviour
     public static GameObject ThePlayer;
     public static GameObject CurrentPlatform;
 
-    private bool canTurn;
+    private Lane lane;
     private bool isDead = false;
 
     void Awake()
@@ -23,8 +23,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        CreatePlatforms.RunPhantom();
-        canTurn = false;
+        //CreatePlatforms.RunPhantom();
+        lane = Lane.Middle;
         isDead = false;
     }
 
@@ -40,50 +40,46 @@ public class PlayerBehaviour : MonoBehaviour
         // space to jump, use input keys (left and right arrow)
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            print("Turning Right");
+            
             // check if "canTurn" is true or false.
-            if (!canTurn)
+            if (lane == Lane.Right)
             {
-                // move right, but what about turning
-                // for now, lateral movement
-                this.transform.Translate(0.3f, 0f, 0f);
+                print("Cant Strafe Right");
             }
             else
             {
-                // turn right, reposition the phantom and add a new platform
-                this.transform.Rotate(Vector3.up * 90);
-                CreatePlatforms.phantom.transform.forward = this.transform.forward;
-                // try translating the phantom to the front of the right turn.
-                // current platform is right turn.
-                CreatePlatforms.phantom.transform.position = CurrentPlatform.transform.position +
-                    CreatePlatforms.phantom.transform.forward * 3.5f;
-                CreatePlatforms.RunPhantom();
+                if (lane == Lane.Middle)
+                {
+                    lane = Lane.Right;
+                }
+                else
+                {
+                    lane = Lane.Middle;
+                }
+                this.transform.position = this.transform.right * (int)lane;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            // move left, but what about turning
-            // for now, lateral movement
+            
             // check if "canTurn" is true or false.
-            print("Turning Left");
-            if (!canTurn)
+            if (lane == Lane.Left)
             {
-                // move right, but what about turning
-                // for now, lateral movement
-                this.transform.Translate(-0.3f, 0f, 0f);
+                print("Cant Strafe left");
             }
             else
             {
-                // turn right, reposition the phantom and add a new platform
-                this.transform.Rotate(Vector3.up * -90);
-                CreatePlatforms.phantom.transform.forward = this.transform.forward;
-                // try translating the phantom to the front of the right turn.
-                // current platform is right turn.
-                CreatePlatforms.phantom.transform.position = CurrentPlatform.transform.position +
-                    CreatePlatforms.phantom.transform.forward * 3.5f;
-                CreatePlatforms.RunPhantom();
+                
+                if (lane == Lane.Middle)
+                {
+                    lane = Lane.Left;
+                }
+                else
+                {
+                    lane = Lane.Middle;
+                }
+                this.transform.position = this.transform.right * (int)lane;
             }
-
         }
     }
 
@@ -101,23 +97,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // be executed when the player hits the box collider
-        if (other is SphereCollider)
-        {
-            canTurn = true;    // turn 90 degrees
-            print("Can turn is true");
-        }
-        else if (other is BoxCollider)
-        {
-            //print("create platform");
-            CreatePlatforms.RunPhantom();
-        }
+        print("Entered Trigger");
+        //// be executed when the player hits the box collider
+        //if (other is SphereCollider)
+        //{
+        //    canTurn = true;    // turn 90 degrees
+        //    print("Can turn is true");
+        //}
+        //else if (other is BoxCollider)
+        //{
+        //    //print("create platform");
+        //    CreatePlatforms.RunPhantom();
+        //}
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other is SphereCollider) canTurn = false;
-        print("Can turn is false");
+        print("Exitted Trigger");
     }
 
 }
