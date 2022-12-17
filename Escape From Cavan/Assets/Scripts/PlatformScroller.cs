@@ -11,29 +11,13 @@ public class PlatformScroller : MonoBehaviour
 
     void FixedUpdate()
     {
-        //this.transform.Translate(0f, 0f, moveSpeed);
+        this.transform.Translate(0f, 0f, moveSpeed);
         // move in the opposite direction to the player, so 
         // use the forward of the player to get this.
         this.transform.position +=
             PlayerBehaviour.ThePlayer.transform.forward * moveSpeed;
         // move stairs up and down
         if (PlayerBehaviour.CurrentPlatform == null) return;
-
-        if (PlayerBehaviour.CurrentPlatform.tag == "Stairs Up")
-            this.transform.Translate(0, (-1 * verticalMoveSpeed), 0);
-        //this.transform.Translate(0, -2.3f, 0);
-
-        if (PlayerBehaviour.CurrentPlatform.tag == "Stairs Down")
-            this.transform.Translate(0, verticalMoveSpeed, 0);
-        //this.transform.Translate(0, 2.3f, 0);
-
-
-
-        // move the platform in the -z direction.
-        //if (this.tag == "Stairs Up")
-        //    this.transform.Translate(0f, 0f, -moveSpeed);
-        //else
-        //    this.transform.Translate(0f, 0f, moveSpeed);
     }
 }
 // change this to 

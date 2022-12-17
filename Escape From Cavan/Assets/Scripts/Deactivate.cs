@@ -11,6 +11,7 @@ public class Deactivate : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            print(deactivateScheduled);
             if (deactivateScheduled == false)
             {
                 // 1.5 second delay needs to be tested
@@ -24,5 +25,6 @@ public class Deactivate : MonoBehaviour
     {
         this.gameObject.SetActive(false);
         deactivateScheduled = false;
+        print("Got to deactivate");
     }
 }
